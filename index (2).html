@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanif Baihaqi — Coming Soon</title>
+<meta name="description" content="Hanif Baihaqi — General AI Fluency, FlyRank Cohort July 2026. Portfolio launching soon.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0a1128;
+    --bg-raised: #0f1836;
+    --fg: #f7f8fc;
+    --fg-dim: #93a0c9;
+    --fg-faint: #4c5787;
+    --line: #22305e;
+    --line-strong: #34437a;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --edge: clamp(20px, 5vw, 56px);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ background:var(--bg); }
+
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--font-body);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle film-grain texture */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--fg); color:var(--bg); }
+
+  :focus-visible{
+    outline:1px solid var(--fg);
+    outline-offset:4px;
+  }
+
+  .frame{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---------- status bar ---------- */
+  .statusbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    padding:22px var(--edge);
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fg-dim);
+  }
+
+  .statusbar .dot{
+    display:inline-block;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--fg);
+    margin-right:8px;
+    animation:pulse 2.2s ease-in-out infinite;
+    vertical-align:middle;
+  }
+
+  .statusbar span.loc{ color:var(--fg); }
+
+  .statusbar .right{
+    display:flex;
+    gap:28px;
+  }
+
+  @media (max-width:640px){
+    .statusbar{ font-size:10px; padding:16px var(--edge); }
+    .statusbar .right{ display:none; }
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.25; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:64px var(--edge);
+    position:relative;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--fg-dim);
+    margin-bottom:28px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    opacity:0;
+    animation:rise 0.7s ease forwards 0.1s;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width:28px; height:1px;
+    background:var(--fg-faint);
+  }
+
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(2.6rem, 9vw, 7.5rem);
+    line-height:0.96;
+    letter-spacing:-0.02em;
+    text-transform:uppercase;
+    max-width:16ch;
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.22s;
+  }
+
+  .role{
+    font-family:var(--font-body);
+    font-weight:500;
+    font-size:clamp(0.95rem, 2vw, 1.15rem);
+    color:var(--fg-dim);
+    margin-top:22px;
+    max-width:42ch;
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.34s;
+  }
+
+  .role strong{
+    color:var(--fg);
+    font-weight:600;
+  }
+
+  .coming-soon{
+    font-family:var(--font-mono);
+    font-size:clamp(1rem, 2vw, 1.3rem);
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    margin-top:56px;
+    display:flex;
+    align-items:center;
+    gap:2px;
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.46s;
+  }
+
+  .cursor{
+    display:inline-block;
+    width:0.55em;
+    height:1em;
+    background:var(--fg);
+    margin-left:6px;
+    animation:blink 1s steps(1) infinite;
+    transform:translateY(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; opacity:1; }
+    .statusbar .dot{ animation:none; }
+  }
+
+  .about{
+    margin-top:40px;
+    max-width:52ch;
+    color:var(--fg-dim);
+    font-size:15px;
+    line-height:1.7;
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.58s;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- week ledger (signature element) ---------- */
+  .ledger{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:26px var(--edge);
+    display:flex;
+    align-items:center;
+    gap:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .ledger::-webkit-scrollbar{ display:none; }
+
+  .ledger-inner{
+    display:flex;
+    align-items:center;
+    gap:0;
+    width:100%;
+  }
+
+  .ledger-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--fg-faint);
+    white-space:nowrap;
+    padding-right:24px;
+  }
+
+  .week{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    white-space:nowrap;
+    padding:0 20px;
+    border-left:1px solid var(--line);
+    color:var(--fg-faint);
+    text-transform:uppercase;
+  }
+
+  .week:first-of-type{ border-left:none; }
+
+  .week.active{
+    color:var(--fg);
+  }
+
+  .week.active .tag{
+    background:var(--fg);
+    color:var(--bg);
+    padding:2px 8px;
+    margin-right:8px;
+    display:inline-block;
+  }
+
+  .week .tag{
+    color:var(--fg-faint);
+    margin-right:8px;
+  }
+
+  /* ---------- footer / contact ---------- */
+  footer{
+    padding:32px var(--edge) 36px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+  }
+
+  .contact{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-family:var(--font-mono);
+    font-size:13px;
+  }
+
+  .contact a{
+    text-decoration:none;
+    color:var(--fg);
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    width:fit-content;
+    padding-bottom:2px;
+    border-bottom:1px solid var(--line-strong);
+    transition:border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+
+  .contact a:hover{
+    border-color:var(--fg);
+    opacity:0.75;
+  }
+
+  .contact .k{
+    color:var(--fg-faint);
+    letter-spacing:0.08em;
+  }
+
+  .copyright{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--fg-faint);
+    text-transform:uppercase;
+  }
+
+  @media (max-width:640px){
+    footer{ flex-direction:column; align-items:flex-start; gap:28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <div class="statusbar">
+    <div><span class="dot"></span><span class="loc">Cirebon, West Java, ID</span></div>
+    <div class="right">
+      <span>Status: In Progress</span>
+      <span>FlyRank Cohort — Jul 2026</span>
+    </div>
+  </div>
+
+  <main class="hero">
+    <div class="eyebrow">General AI Fluency — FlyRank Cohort, July 2026</div>
+    <h1>Hanif&nbsp;Baihaqi</h1>
+    <p class="role">Portfolio currently <strong>under construction</strong>, built in public, one week at a time.</p>
+
+    <div class="coming-soon">Coming soon<span class="cursor" aria-hidden="true"></span></div>
+
+    <p class="about">Currently studying General AI Fluency at FlyRank. This portfolio will be updated weekly as I go through the program — check back to follow the progress.</p>
+  </main>
+
+  <div class="ledger" aria-label="Program timeline">
+    <div class="ledger-inner">
+      <span class="ledger-label">Program timeline</span>
+      <span class="week active"><span class="tag">W01</span>Starts Jul 1, 2026</span>
+      <span class="week">W02 — Locked</span>
+      <span class="week">W03 — Locked</span>
+      <span class="week">W04 — Locked</span>
+      <span class="week">W05 — Locked</span>
+      <span class="week">W06 — Locked</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="contact">
+      <a href="https://wa.me/6282111122467" target="_blank" rel="noopener"><span class="k">WA</span> +62 821-1112-2467</a>
+      <a href="mailto:hanifbaihaqi00@gmail.com"><span class="k">EMAIL</span> hanifbaihaqi00@gmail.com</a>
+    </div>
+    <div class="copyright">© 2026 Coming Soon — Week 1 starts July 1st</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
